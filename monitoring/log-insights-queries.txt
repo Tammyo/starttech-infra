@@ -1,0 +1,40 @@
+# StartTech CloudWatch Log Insights Queries
+
+# 1. Find all errors in the last hour
+fields @timestamp, @message
+| filter @message like /ERROR/
+| sort @timestamp desc
+| limit 50
+
+# 2. Count requests by status code
+fields @timestamp, @message
+| filter @message like /status/
+| parse @message "status=*" as status_code
+| stats count(*) by status_code
+| sort count desc
+
+# 3. Find slow requests (over 1 second)
+fields @timestamp, @message
+| filter @message like /duration/
+| parse @message "duration=*ms" as duration
+| filter duration > 1000
+| sort duration desc
+| limit 20
+
+# 4. Count errors per hour
+fields @timestamp, @message
+| filter @message like /ERROR/
+| stats count(*) as error_count by bin(1h)
+| sort @timestamp desc
+
+# 5. Find application panics or crashes
+fields @timestamp, @message
+| filter @message like /panic/ or @message like /fatal/ or @message like /FATAL/
+| sort @timestamp desc
+| limit 20
+
+# 6. Monitor health check failures
+fields @timestamp, @message
+| filter @message like /health/ and @message like /fail/
+| sort @timestamp desc
+| limit 20
