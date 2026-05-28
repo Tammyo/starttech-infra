@@ -6,7 +6,7 @@ echo "🚀 Deploying StartTech Infrastructure..."
 # Variables
 AWS_REGION="us-east-1"
 PROJECT_NAME="starttech"
-STATE_BUCKET="starttech-terraform-state"
+STATE_BUCKET="starttech-terraform-state-913509421387"
 
 # Create S3 bucket for Terraform state if it doesn't exist
 echo "📦 Checking Terraform state bucket..."

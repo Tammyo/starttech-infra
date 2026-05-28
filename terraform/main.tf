@@ -11,7 +11,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "starttech-terraform-state"
+    bucket = "starttech-terraform-state-913509421387"
     key    = "starttech/terraform.tfstate"
     region = "us-east-1"
   }
